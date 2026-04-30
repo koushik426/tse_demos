@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:salesloft.com)",
+      "mcp__claude_ai_SpotterCode__get-visual-embed-sdk-reference",
+      "WebSearch",
+      "Bash(npm run *)",
+      "Bash(/usr/local/bin/npm run *)",
+      "Read(//Users/mani.uppala/.nvm/versions/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(command -v node)",
+      "Read(//Users/mani.uppala/**)",
+      "Read(//Users/mani.uppala/.volta/**)",
+      "Read(//Users/mani.uppala/Library/**)",
+      "Bash(sw_vers)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(export PATH=\"/Users/mani.uppala/.node/bin:$PATH\")",
+      "Read(//tmp/**)"
+    ]
+  }
+}
