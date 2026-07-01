@@ -15,7 +15,18 @@
       "Bash(sw_vers)",
       "Bash(pkill -f \"vite\")",
       "Bash(export PATH=\"/Users/mani.uppala/.node/bin:$PATH\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(grep -rA40 \"interface SpotterEmbedViewConfig\" .)",
+      "WebFetch(domain:www.focuslab.agency)",
+      "Bash(grep -rA60 \"interface BaseViewConfig\" types.d.ts)",
+      "Bash(ls -d ~/.nvm 2>/dev/null && echo \"nvm dir exists\"; find ~/.nvm/versions/node -maxdepth 2 -name node -type f 2>/dev/null | head; ls /opt/homebrew/bin/node /usr/local/bin/node 2>/dev/null; cat ~/.zshrc 2>/dev/null | grep -iE \"nvm|node|volta|fnm|path\" | head)",
+      "Read(//usr/local/bin/**)",
+      "Bash(grep -iE \"nvm|node|\\\\.npm|volta|fnm|asdf|n$\")",
+      "Bash(find / -maxdepth 5 -name node -type f)",
+      "mcp__claude_ai_SpotterCode__get-rest-api-reference",
+      "Bash(grep -rnoE \"\\(minimumHeight|defaultHeight\\)[^;]{0,40}\" lib/src)",
+      "Bash(grep -iE \"[0-9]{2,}\")",
+      "Bash(git mv *)"
     ]
   }
 }

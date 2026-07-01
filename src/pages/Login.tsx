@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Eye, EyeOff, Zap } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import SalesloftLogo from '../components/SalesloftLogo';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -11,7 +11,6 @@ export default function Login() {
   const [error, setError] = useState('');
 
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -22,8 +21,7 @@ export default function Login() {
     setError('');
     setIsLoading(true);
     try {
-      login(username.trim(), password);
-      navigate('/');
+      await login(username.trim(), password);
     } catch {
       setError('Failed to sign in. Please check your credentials.');
     } finally {
@@ -34,18 +32,14 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-left">
-        <div className="login-brand">
-          <div className="login-logo">
-            <Zap size={28} color="#4B75FD" />
-          </div>
-          <span className="login-brand-name">Salesloft</span>
-        </div>
+        <SalesloftLogo className="login-logo" />
         <div className="login-hero-content">
           <h1 className="login-hero-title">
-            Revenue Intelligence.<br />Powered by AI.
+            A new story<br />about sales.
           </h1>
           <p className="login-hero-subtitle">
-            Access your sales analytics, pipeline insights, and AI-powered answers — all in one place.
+            Pipeline performance, team activity, and AI-powered answers — all in
+            one place, powered by ThoughtSpot.
           </p>
           <div className="login-stats">
             <div className="login-stat">
@@ -67,17 +61,19 @@ export default function Login() {
       <div className="login-right">
         <div className="login-card">
           <div className="login-card-header">
-            <h2 className="login-card-title">Sign in to your portal</h2>
-            <p className="login-card-subtitle">Enter your ThoughtSpot credentials to continue</p>
+            <h2 className="login-card-title">Sign in</h2>
+            <p className="login-card-subtitle">
+              Enter your ThoughtSpot credentials to continue
+            </p>
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>
-            {error && (
-              <div className="login-error">{error}</div>
-            )}
+            {error && <div className="login-error">{error}</div>}
 
             <div className="login-field">
-              <label htmlFor="username" className="login-label">Username</label>
+              <label htmlFor="username" className="login-label">
+                Username
+              </label>
               <input
                 id="username"
                 type="text"
@@ -91,7 +87,9 @@ export default function Login() {
             </div>
 
             <div className="login-field">
-              <label htmlFor="password" className="login-label">Password</label>
+              <label htmlFor="password" className="login-label">
+                Password
+              </label>
               <div className="login-input-wrapper">
                 <input
                   id="password"
@@ -118,11 +116,7 @@ export default function Login() {
               className="login-submit"
               disabled={isLoading || !username.trim() || !password.trim()}
             >
-              {isLoading ? (
-                <span className="login-spinner" />
-              ) : (
-                'Sign In'
-              )}
+              {isLoading ? <span className="login-spinner" /> : 'Sign In'}
             </button>
           </form>
 

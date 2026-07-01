@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.salesloft.com)",
+      "Bash(grep -rA30 \"interface SpotterEmbedViewConfig\" .)"
+    ]
+  }
+}
