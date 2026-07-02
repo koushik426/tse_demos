@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import TopBar, { TabId } from './components/TopBar';
@@ -37,6 +38,7 @@ export default function App() {
         worksheetId={tab === 'cadences' ? CADENCE_WORKSHEET_ID : WORKSHEET_ID}
         greeting={tab === 'cadences' ? CHATBOT_CADENCES_WELCOME : CHATBOT_WELCOME}
       />
+      <VercelAnalytics />
     </div>
   );
 }
