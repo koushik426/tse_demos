@@ -339,6 +339,72 @@ button {
   gap: 18px;
   margin-bottom: 20px;
 }
+/* Selected-liveboard view: full page width + full viewport height (no gaps). */
+.ma-selected {
+  max-width: none;
+  height: calc(100vh - var(--topbar-h));
+  display: flex;
+  flex-direction: column;
+}
+.ma-selected .my-analytics-toolbar {
+  flex-shrink: 0;
+}
+.ma-selected .liveboard-wrapper {
+  flex: 1;
+  min-height: 0;
+}
+.ma-selected .liveboard-wrapper > div,
+.ma-selected .liveboard-wrapper iframe {
+  height: 100% !important;
+}
+.ma-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.create-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: linear-gradient(135deg, #1bb978, var(--sl-green-dark));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(12, 91, 67, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.create-dashboard-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(12, 91, 67, 0.38);
+}
+.create-dashboard-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn-spinner {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+.ma-inline-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fdecea;
+  color: #b3261e;
+  border: 1px solid #f5c6c2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  margin-bottom: 18px;
+}
 .back-btn,
 .refresh-btn {
   display: inline-flex;

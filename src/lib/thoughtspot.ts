@@ -173,6 +173,109 @@ export function liveboardUrl(id: string): string {
 }
 
 // ---------------------------------------------------------------------------
+// Create a new (empty) liveboard via REST (TML import), returning its GUID.
+// ---------------------------------------------------------------------------
+
+const GUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function extractNewGuid(data: any): string | undefined {
+  const items = Array.isArray(data) ? data : [data];
+
+  // Surface an import error if ThoughtSpot returned one (status != OK).
+  for (const item of items) {
+    const status = item?.response?.status ?? item?.status;
+    const code = status?.status_code ?? status?.code;
+    if (code && String(code).toUpperCase() !== 'OK') {
+      throw new Error(
+        status?.error_message ??
+          status?.errorMessage ??
+          JSON.stringify(status).slice(0, 200),
+      );
+    }
+  }
+
+  // Precise, ordered paths for the created object's GUID.
+  for (const item of items) {
+    const candidates = [
+      item?.response?.header?.id_guid,
+      item?.response?.header?.metadata_id_guid,
+      item?.header?.id_guid,
+      item?.metadata_id_guid,
+      item?.id_guid,
+    ];
+    for (const c of candidates) {
+      if (typeof c === 'string' && GUID_RE.test(c)) return c;
+    }
+  }
+
+  // Fallback: scan, but only for the canonical GUID keys (not author/org ids).
+  let found: string | undefined;
+  const walk = (o: any) => {
+    if (found || !o || typeof o !== 'object') return;
+    for (const [k, v] of Object.entries(o)) {
+      if (found) return;
+      if (
+        /^(id_guid|metadata_id_guid|guid)$/i.test(k) &&
+        typeof v === 'string' &&
+        GUID_RE.test(v)
+      ) {
+        found = v;
+        return;
+      }
+      if (v && typeof v === 'object') walk(v);
+    }
+  };
+  walk(data);
+  return found;
+}
+
+/** Create a new empty liveboard and return its GUID + name. */
+export async function createLiveboard(
+  username: string,
+  password: string,
+  name = 'New Dashboard',
+  description = '',
+): Promise<{ id: string; name: string }> {
+  await ensureRestSession(username, password);
+  // Minimal liveboard TML (YAML). JSON.stringify quotes/escapes the values.
+  const tml =
+    `liveboard:\n  name: ${JSON.stringify(name)}\n` +
+    `  description: ${JSON.stringify(description)}\n`;
+  const res = await fetch(
+    `${THOUGHTSPOT_HOST}/api/rest/2.0/metadata/tml/import`,
+    {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        metadata_tmls: [tml],
+        import_policy: 'ALL_OR_NONE',
+        create_new: true,
+      }),
+    },
+  );
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(
+      `Create liveboard failed (${res.status})${text ? `: ${text.slice(0, 200)}` : ''}`,
+    );
+  }
+  const data = JSON.parse(text);
+  // Logged so the exact tml/import response shape is inspectable in DevTools.
+  console.log('[create-liveboard] import response:', data);
+  const guid = extractNewGuid(data);
+  console.log('[create-liveboard] extracted GUID:', guid);
+  if (!guid) {
+    throw new Error(`Liveboard created but no GUID was returned: ${text.slice(0, 200)}`);
+  }
+  return { id: guid, name };
+}
+
+// ---------------------------------------------------------------------------
 // Search Data API — used by the "Inline Insights" tab to list cadence names
 // ---------------------------------------------------------------------------
 

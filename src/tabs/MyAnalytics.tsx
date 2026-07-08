@@ -1,15 +1,26 @@
-import { useEffect, useState } from 'react';
-import { LiveboardEmbed } from '@thoughtspot/visual-embed-sdk/react';
-import { LayoutGrid, ArrowLeft, RefreshCw, AlertCircle, Clock, User } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { LiveboardEmbed, useEmbedRef } from '@thoughtspot/visual-embed-sdk/react';
+import { HostEvent } from '@thoughtspot/visual-embed-sdk';
+import {
+  LayoutGrid,
+  ArrowLeft,
+  RefreshCw,
+  AlertCircle,
+  Clock,
+  User,
+  Plus,
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import {
   searchLiveboards,
+  createLiveboard,
   tsCustomizations,
   LiveboardSummary,
 } from '../lib/thoughtspot';
 import { LIVEBOARD_EMBED_FLAGS } from '../config';
+import CreateDashboardModal from '../components/CreateDashboardModal';
 
-const Liveboard = LiveboardEmbed as unknown as (props: any) => JSX.Element;
+const Liveboard = LiveboardEmbed as any;
 
 type State =
   | { status: 'loading' }
@@ -29,6 +40,45 @@ export default function MyAnalytics() {
   const { username, password } = useAuth();
   const [state, setState] = useState<State>({ status: 'loading' });
   const [selected, setSelected] = useState<LiveboardSummary | null>(null);
+  const [createOpen, setCreateOpen] = useState(false);
+  const embedRef = useEmbedRef<typeof LiveboardEmbed>();
+  // When true, the next liveboard load auto-enters edit mode (freshly created).
+  const autoEditRef = useRef(false);
+
+  // Step 2–4: create the liveboard via REST, then embed the returned ID.
+  async function handleCreate(name: string, description: string) {
+    const lb = await createLiveboard(username, password, name, description);
+    autoEditRef.current = true;
+    setSelected({
+      id: lb.id,
+      name: lb.name,
+      description,
+      authorName: username,
+      authorDisplayName: username,
+      modified: Date.now(),
+    });
+    setCreateOpen(false);
+    load(); // refresh "My Dashboards" so the new one shows on next visit
+  }
+
+  // Step 5: on an empty liveboard, LiveboardRendered never fires — use Load,
+  // then trigger Edit after a short delay so ThoughtSpot's handlers are ready.
+  function handleLoad() {
+    if (!autoEditRef.current) return;
+    autoEditRef.current = false;
+    setTimeout(() => {
+      try {
+        embedRef.current?.trigger(HostEvent.Edit);
+      } catch {
+        /* ignore */
+      }
+    }, 1500);
+  }
+
+  function openLiveboard(lb: LiveboardSummary) {
+    autoEditRef.current = false; // existing boards open in view mode
+    setSelected(lb);
+  }
 
   async function load() {
     setState({ status: 'loading' });
@@ -53,7 +103,7 @@ export default function MyAnalytics() {
 
   if (selected) {
     return (
-      <div className="tab-my-analytics">
+      <div className="tab-my-analytics ma-selected">
         <div className="my-analytics-toolbar">
           <button className="back-btn" onClick={() => setSelected(null)}>
             <ArrowLeft size={16} />
@@ -63,11 +113,12 @@ export default function MyAnalytics() {
         </div>
         <div className="liveboard-wrapper">
           <Liveboard
+            ref={embedRef}
             liveboardId={selected.id}
-            fullHeight
             isLiveboardMasterpiecesEnabled
             customizations={tsCustomizations(false)}
             {...LIVEBOARD_EMBED_FLAGS}
+            onLoad={handleLoad}
           />
         </div>
       </div>
@@ -87,10 +138,19 @@ export default function MyAnalytics() {
               : 'Liveboards you have access to in ThoughtSpot'}
           </p>
         </div>
-        <button className="refresh-btn" onClick={load} title="Refresh">
-          <RefreshCw size={16} />
-          Refresh
-        </button>
+        <div className="ma-header-actions">
+          <button
+            className="create-dashboard-btn"
+            onClick={() => setCreateOpen(true)}
+          >
+            <Plus size={16} />
+            Create New Dashboard
+          </button>
+          <button className="refresh-btn" onClick={load} title="Refresh">
+            <RefreshCw size={16} />
+            Refresh
+          </button>
+        </div>
       </div>
 
       {state.status === 'loading' && (
@@ -131,15 +191,13 @@ export default function MyAnalytics() {
             <button
               key={lb.id}
               className="ma-card"
-              onClick={() => setSelected(lb)}
+              onClick={() => openLiveboard(lb)}
             >
               <div className="ma-card-icon">
                 <LayoutGrid size={20} />
               </div>
               <h3 className="ma-card-title">{lb.name}</h3>
-              {lb.description && (
-                <p className="ma-card-desc">{lb.description}</p>
-              )}
+              {lb.description && <p className="ma-card-desc">{lb.description}</p>}
               <div className="ma-card-meta">
                 <span className="ma-card-meta-item">
                   <Clock size={13} /> {formatDate(lb.modified)}
@@ -154,6 +212,12 @@ export default function MyAnalytics() {
           ))}
         </div>
       )}
+
+      <CreateDashboardModal
+        open={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onCreate={handleCreate}
+      />
     </div>
   );
 }
