@@ -1,0 +1,124 @@
+{
+  "style": {
+    "customCSSUrl": "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap",
+    "customCSS": {
+      "variables": {
+        "--ts-var-root-background": "#0e1520",
+        "--ts-var-root-color": "#e7edf3",
+        "--ts-var-root-secondary-color": "#9aa6b4",
+        "--ts-var-root-font-family": "\"Outfit\", \"Segoe UI\", sans-serif",
+        "--ts-var-application-color": "#e7edf3",
+        "--ts-var-segment-control-hover-background": "#1b2636",
+        "--ts-var-nav-background": "#0b1017",
+        "--ts-var-nav-color": "#e7edf3",
+        "--ts-var-button-border-radius": "8px",
+        "--ts-var-button--icon-border-radius": "8px",
+        "--ts-var-button--primary-background": "#cbef39",
+        "--ts-var-button--primary-color": "#0a0f16",
+        "--ts-var-button--primary--hover-background": "#b6da2f",
+        "--ts-var-button--secondary-background": "#1b2636",
+        "--ts-var-button--secondary-color": "#e7edf3",
+        "--ts-var-button--secondary--hover-background": "#243247",
+        "--ts-var-button--tertiary-background": "transparent",
+        "--ts-var-button--tertiary-color": "#c7d2e2",
+        "--ts-var-button--tertiary--hover-background": "#1b2636",
+        "--ts-var-menu-background": "#111a27",
+        "--ts-var-menu-color": "#e7edf3",
+        "--ts-var-menu--hover-background": "#1b2636",
+        "--ts-var-menu-selected-text-color": "#cbef39",
+        "--ts-var-menu-separator-background": "#1b2636",
+        "--ts-var-dialog-body-background": "#111a27",
+        "--ts-var-dialog-body-color": "#e7edf3",
+        "--ts-var-dialog-header-background": "#111a27",
+        "--ts-var-dialog-header-color": "#e7edf3",
+        "--ts-var-dialog-footer-background": "#111a27",
+        "--ts-var-list-selected-background": "#1b2636",
+        "--ts-var-list-hover-background": "#17212f",
+        "--ts-var-liveboard-layout-background": "#0b1017",
+        "--ts-var-liveboard-edit-bar-background": "#111a27",
+        "--ts-var-liveboard-cross-filter-layout-background": "#111a27",
+        "--ts-var-liveboard-header-font-color": "#e7edf3",
+        "--ts-var-liveboard-tile-border-radius": "12px",
+        "--ts-var-parameter-chip-text-color": "#e7edf3",
+        "--ts-var-liveboard-notetitle-heading-font-color": "#e7edf3",
+        "--ts-var-liveboard-notetitle-body-font-color": "#c7d2e2",
+        "--ts-var-liveboard-group-background": "#0b1017",
+        "--ts-var-liveboard-group-title-font-color": "#e7edf3",
+        "--ts-var-liveboard-group-border-color": "#1b2636",
+        "--ts-var-liveboard-group-description-font-color": "#9aa6b4",
+        "--ts-var-liveboard-group-tile-title-font-color": "#e7edf3",
+        "--ts-var-liveboard-group-tile-description-font-color": "#9aa6b4",
+        "--ts-var-liveboard-tile-border-color": "#1b2636",
+        "--ts-var-liveboard-tile-background": "#111a27",
+        "--ts-var-viz-background": "#111a27",
+        "--ts-var-viz-title-color": "#e7edf3",
+        "--ts-var-viz-title-font-family": "\"Outfit\", \"Segoe UI\", sans-serif",
+        "--ts-var-viz-description-color": "#9aa6b4",
+        "--ts-var-viz-border-radius": "12px",
+        "--ts-var-viz-box-shadow": "0 1px 2px rgba(0,0,0,0.5)",
+        "--ts-var-viz-legend-hover-background": "#1b2636",
+        "--ts-var-axis-title-color": "#9aa6b4",
+        "--ts-var-axis-data-label-color": "#9aa6b4",
+        "--ts-var-answer-view-table-chart-switcher-background": "#1b2636",
+        "--ts-var-answer-view-table-chart-switcher-active-background": "#0e1520",
+        "--ts-var-answer-chart-select-background": "#1b2636",
+        "--ts-var-answer-chart-hover-background": "#243247",
+        "--ts-var-answer-data-panel-background-color": "#0b1017",
+        "--ts-var-answer-edit-panel-background-color": "#0b1017",
+        "--ts-var-chip-background": "#1b2636",
+        "--ts-var-chip-color": "#c7d2e2",
+        "--ts-var-chip-border-radius": "9px",
+        "--ts-var-chip--hover-background": "#243247",
+        "--ts-var-chip--hover-color": "#e7edf3",
+        "--ts-var-chip--active-background": "#cbef39",
+        "--ts-var-chip--active-color": "#0a0f16",
+        "--ts-var-search-bar-background": "#131d2b",
+        "--ts-var-search-bar-text-font-color": "#e7edf3",
+        "--ts-var-search-data-button-background": "#cbef39",
+        "--ts-var-search-data-button-font-color": "#0a0f16",
+        "--ts-var-search-auto-complete-background": "#111a27",
+        "--ts-var-search-auto-complete-font-color": "#e7edf3",
+        "--ts-var-spotter-input-background": "#131d2b",
+        "--ts-var-spotter-prompt-background": "#131d2b",
+        "--ts-var-sage-embed-background-color": "#0e1520",
+        "--ts-var-sage-bar-header-background-color": "#0e1520",
+        "--ts-var-sage-search-box-background-color": "#131d2b",
+        "--ts-var-sage-search-box-font-color": "#e7edf3",
+        "--ts-var-source-selector-background-color": "#111a27",
+        "--ts-var-sage-seed-questions-background": "#131d2b",
+        "--ts-var-sage-seed-questions-font-color": "#c7d2e2",
+        "--ts-var-sage-seed-questions-hover-background": "#1b2636"
+      },
+      "rules_UNSTABLE": {
+        "input:not([type=\"checkbox\"]):not([type=\"radio\"]),textarea,[class*=\"input\" i],[class*=\"field\" i],[class*=\"textbox\" i],[class*=\"find\" i],[class*=\"searchbox\" i]": {
+          "background-color": "#131d2b !important",
+          "color": "#e7edf3 !important"
+        },
+        "[class*=\"toggle\" i],[class*=\"switch\" i],[class*=\"switcher\" i],[class*=\"layout\" i]": {
+          "background-color": "#111a27 !important",
+          "color": "#e7edf3 !important"
+        },
+        "[data-testid=\"select-dropdown-header\"]": {
+          "background-color": "#131d2b !important",
+          "color": "#e7edf3 !important"
+        },
+        "[class*=\"answer\" i],[class*=\"conversation\" i],[class*=\"message\" i],[class*=\"spotter\" i],[class*=\"sage\" i]": {
+          "background-color": "#111a27 !important",
+          "color": "#e7edf3 !important"
+        },
+        "[class*=\"modal\" i],[class*=\"dialog\" i],[class*=\"popover\" i],[class*=\"flyout\" i],[class*=\"drawer\" i],[class*=\"data-panel\" i],[class*=\"dataPanel\" i]": {
+          "background-color": "#111a27 !important",
+          "color": "#e7edf3 !important"
+        },
+        "[class*=\"kpi\" i],[class*=\"headline\" i],.bk-data-viz-headline-container,.bk-data-viz-headline-container .bk-overflow-ellipsis": {
+          "color": "#CBEF38 !important"
+        }
+      }
+    }
+  },
+  "content": {
+    "strings": {
+      "Spotter": "HiveWatch AI"
+    }
+  }
+}
