@@ -1,0 +1,60 @@
+/* ===========================================================================
+   HiveWatch — ThoughtSpot LIGHT theme stylesheet
+   Host on a CDN, allowlist in the cluster CSP (style-src), and set
+   VITE_TS_LIGHT_CSS_URL. Mirrors the dark file with light values.
+   =========================================================================== */
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC0C4G-EiAou6Y.woff2) format('woff2');
+}
+
+:root {
+  --ts-var-root-background: #ffffff;
+  --ts-var-root-color: #16233b;
+  --ts-var-root-secondary-color: #5b6b82;
+  --ts-var-root-font-family: 'Outfit', sans-serif;
+  --ts-var-application-color: #16233b;
+  --ts-var-segment-control-hover-background: #eef2f8;
+  --ts-var-nav-background: #ffffff;
+  --ts-var-nav-color: #16233b;
+  --ts-var-button-border-radius: 8px;
+  --ts-var-button--icon-border-radius: 8px;
+  --ts-var-button--primary-background: #12b886;
+  --ts-var-button--primary-color: #ffffff;
+  --ts-var-button--primary--hover-background: #0ea373;
+  --ts-var-button--secondary-background: #eef2f8;
+  --ts-var-button--secondary-color: #16233b;
+  --ts-var-button--secondary--hover-background: #e2e8f2;
+  --ts-var-menu-background: #ffffff;
+  --ts-var-menu-color: #16233b;
+  --ts-var-menu--hover-background: #eef2f8;
+  --ts-var-dialog-body-background: #ffffff;
+  --ts-var-dialog-body-color: #16233b;
+  --ts-var-dialog-header-background: #ffffff;
+  --ts-var-dialog-footer-background: #ffffff;
+  --ts-var-list-selected-background: #eaf1fb;
+  --ts-var-list-hover-background: #f2f5fa;
+  --ts-var-liveboard-layout-background: #f5f8fc;
+  --ts-var-liveboard-tile-background: #ffffff;
+  --ts-var-liveboard-tile-border-color: #e3e9f1;
+  --ts-var-liveboard-group-background: #f5f8fc;
+  --ts-var-liveboard-group-title-font-color: #16233b;
+  --ts-var-viz-background: #ffffff;
+  --ts-var-viz-title-color: #16233b;
+  --ts-var-viz-description-color: #7b8798;
+  --ts-var-viz-border-radius: 12px;
+  --ts-var-chip-background: #eef2f8;
+  --ts-var-chip-color: #33415c;
+  --ts-var-chip--active-background: #12b886;
+  --ts-var-chip--active-color: #ffffff;
+  --ts-var-search-bar-background: #f0f3f8;
+  --ts-var-search-data-button-background: #12b886;
+  --ts-var-search-data-button-font-color: #ffffff;
+  --ts-var-spotter-input-background: #f0f3f8;
+  --ts-var-sage-embed-background-color: #ffffff;
+  --ts-var-sage-search-box-background-color: #f0f3f8;
+}
