@@ -1,0 +1,203 @@
+/* ===========================================================================
+   HiveWatch — ThoughtSpot DARK theme stylesheet
+   ---------------------------------------------------------------------------
+   Host this file on a CDN (e.g. jsDelivr from your repo) and:
+     1. Add its URL to the ThoughtSpot cluster CSP allowlist:
+        Develop > Customizations > Security settings > CSP style-src.
+     2. Set VITE_TS_DARK_CSS_URL to that URL in the HiveWatch app .env.
+   The app passes it as `customizations.style.customCSSUrl` for dark mode.
+
+   Editing workflow for the last-mile grid/toolbar elements:
+     - In the embed, right-click the off-color element > Inspect.
+     - Copy its class (ThoughtSpot uses hashed `name-module__hash` classes;
+       match on a stable substring, e.g. [class*="pivotTable" i]).
+     - Add a rule in the "RULES" section below. Always use !important.
+   =========================================================================== */
+
+/* ------------------------------- Font -------------------------------------- */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC0C4G-EiAou6Y.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC0C4G-EiAou6Y.woff2) format('woff2');
+}
+
+/* --------------------------- CSS variables --------------------------------- */
+:root {
+  /* Application-wide */
+  --ts-var-root-background: #0e1520;
+  --ts-var-root-color: #e7edf3;
+  --ts-var-root-secondary-color: #9aa6b4;
+  --ts-var-root-font-family: 'Outfit', sans-serif;
+  --ts-var-application-color: #e7edf3;
+  --ts-var-segment-control-hover-background: #1b2636;
+  /* Nav */
+  --ts-var-nav-background: #0b1017;
+  --ts-var-nav-color: #e7edf3;
+  /* Buttons */
+  --ts-var-button-border-radius: 8px;
+  --ts-var-button--icon-border-radius: 8px;
+  --ts-var-button--primary-background: #cbef39;
+  --ts-var-button--primary-color: #0a0f16;
+  --ts-var-button--primary--hover-background: #b6da2f;
+  --ts-var-button--secondary-background: #1b2636;
+  --ts-var-button--secondary-color: #e7edf3;
+  --ts-var-button--secondary--hover-background: #243247;
+  --ts-var-button--tertiary-background: transparent;
+  --ts-var-button--tertiary-color: #c7d2e2;
+  --ts-var-button--tertiary--hover-background: #1b2636;
+  /* Menu */
+  --ts-var-menu-background: #111a27;
+  --ts-var-menu-color: #e7edf3;
+  --ts-var-menu--hover-background: #1b2636;
+  --ts-var-menu-selected-text-color: #cbef39;
+  --ts-var-menu-separator-background: #1b2636;
+  /* Dialogs */
+  --ts-var-dialog-body-background: #111a27;
+  --ts-var-dialog-body-color: #e7edf3;
+  --ts-var-dialog-header-background: #111a27;
+  --ts-var-dialog-header-color: #e7edf3;
+  --ts-var-dialog-footer-background: #111a27;
+  /* Lists */
+  --ts-var-list-selected-background: #1b2636;
+  --ts-var-list-hover-background: #17212f;
+  /* Liveboard */
+  --ts-var-liveboard-layout-background: #0b1017;
+  --ts-var-liveboard-edit-bar-background: #111a27;
+  --ts-var-liveboard-cross-filter-layout-background: #111a27;
+  --ts-var-liveboard-header-font-color: #e7edf3;
+  --ts-var-liveboard-tile-border-radius: 12px;
+  --ts-var-parameter-chip-text-color: #e7edf3;
+  --ts-var-liveboard-notetitle-heading-font-color: #e7edf3;
+  --ts-var-liveboard-notetitle-body-font-color: #c7d2e2;
+  --ts-var-liveboard-group-background: #0b1017;
+  --ts-var-liveboard-group-title-font-color: #e7edf3;
+  --ts-var-liveboard-group-border-color: #1b2636;
+  --ts-var-liveboard-group-description-font-color: #9aa6b4;
+  --ts-var-liveboard-group-tile-title-font-color: #e7edf3;
+  --ts-var-liveboard-group-tile-description-font-color: #9aa6b4;
+  --ts-var-liveboard-tile-border-color: #1b2636;
+  --ts-var-liveboard-tile-background: #111a27;
+  /* Viz / Answer */
+  --ts-var-viz-background: #111a27;
+  --ts-var-viz-title-color: #e7edf3;
+  --ts-var-viz-title-font-family: 'Outfit', sans-serif;
+  --ts-var-viz-description-color: #9aa6b4;
+  --ts-var-viz-border-radius: 12px;
+  --ts-var-viz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --ts-var-viz-legend-hover-background: #1b2636;
+  --ts-var-axis-title-color: #9aa6b4;
+  --ts-var-axis-data-label-color: #9aa6b4;
+  --ts-var-answer-view-table-chart-switcher-background: #1b2636;
+  --ts-var-answer-view-table-chart-switcher-active-background: #0e1520;
+  --ts-var-answer-chart-select-background: #1b2636;
+  --ts-var-answer-chart-hover-background: #243247;
+  --ts-var-answer-data-panel-background-color: #0b1017;
+  --ts-var-answer-edit-panel-background-color: #0b1017;
+  /* Filter chips */
+  --ts-var-chip-background: #1b2636;
+  --ts-var-chip-color: #c7d2e2;
+  --ts-var-chip-border-radius: 9px;
+  --ts-var-chip--hover-background: #243247;
+  --ts-var-chip--hover-color: #e7edf3;
+  --ts-var-chip--active-background: #cbef39;
+  --ts-var-chip--active-color: #0a0f16;
+  /* Search */
+  --ts-var-search-bar-background: #131d2b;
+  --ts-var-search-bar-text-font-color: #e7edf3;
+  --ts-var-search-data-button-background: #cbef39;
+  --ts-var-search-data-button-font-color: #0a0f16;
+  --ts-var-search-auto-complete-background: #111a27;
+  --ts-var-search-auto-complete-font-color: #e7edf3;
+  /* Spotter */
+  --ts-var-spotter-input-background: #131d2b;
+  --ts-var-spotter-prompt-background: #131d2b;
+  /* Sage / NL search */
+  --ts-var-sage-embed-background-color: #0e1520;
+  --ts-var-sage-bar-header-background-color: #0e1520;
+  --ts-var-sage-search-box-background-color: #131d2b;
+  --ts-var-sage-search-box-font-color: #e7edf3;
+  --ts-var-source-selector-background-color: #111a27;
+  --ts-var-sage-seed-questions-background: #131d2b;
+  --ts-var-sage-seed-questions-font-color: #c7d2e2;
+  --ts-var-sage-seed-questions-hover-background: #1b2636;
+}
+
+/* =============================== RULES ====================================
+   Precise selector overrides for elements with NO variable. These are the
+   "last mile" that inline app rules handle bluntly — refine them here per your
+   cluster's actual class names (Inspect > copy substring). Keep !important.
+
+   NOTE: prefer specific substrings (e.g. [class*="pivotTable" i]) over broad
+   ones (e.g. [class*="table" i]) so you don't flatten data grids or recolor
+   chart internals. Charts are SVG — set `fill`, not `color`, for chart marks.
+   ========================================================================== */
+
+/* Answer card / conversation surfaces (the white answer box + footer). */
+[class*="answer" i],
+[class*="conversation" i],
+[class*="spotter" i],
+[class*="sage" i] {
+  background-color: #111a27 !important;
+  color: #e7edf3 !important;
+}
+
+/* Floating chrome: modals, dialogs, popovers, drawers, data panel. */
+[class*="modal" i],
+[class*="dialog" i],
+[class*="popover" i],
+[class*="flyout" i],
+[class*="drawer" i],
+[class*="dataPanel" i],
+[class*="data-panel" i] {
+  background-color: #111a27 !important;
+  color: #e7edf3 !important;
+}
+
+/* Text inputs + field wrappers (search boxes, "Find columns"). */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+[class*="input" i],
+[class*="field" i],
+[class*="find" i] {
+  background-color: #131d2b !important;
+  color: #e7edf3 !important;
+}
+
+/* Toggle / layout / view switch controls. */
+[class*="toggle" i],
+[class*="switch" i],
+[class*="layout-switch" i] {
+  background-color: #111a27 !important;
+  color: #e7edf3 !important;
+}
+
+/* -------------------- Last-mile: fill in from Inspect ---------------------
+   Examples (uncomment + replace with the real class substrings you find):
+
+   .pivot frozen header + grand-total columns:
+   [class*="pivotTable" i] [class*="frozen" i],
+   [class*="pivotTable" i] [class*="grandTotal" i] {
+     background-color: #111a27 !important;
+     color: #e7edf3 !important;
+   }
+
+   edit-toolbar chart-type icons (make them legible on dark):
+   [class*="vizToolbar" i] svg,
+   [class*="chartTypeRail" i] svg {
+     color: #c7d2e2 !important;
+   }
+
+   table gridlines / borders:
+   [class*="tableViz" i] [class*="cell" i] {
+     border-color: #243247 !important;
+   }
+   ------------------------------------------------------------------------- */
