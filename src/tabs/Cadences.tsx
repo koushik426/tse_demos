@@ -122,6 +122,7 @@ export default function Cadences() {
                     <Liveboard
                       key={`${name}-${theme}`}
                       liveboardId={INLINE_INSIGHTS_LIVEBOARD_ID}
+                      isLiveboardMasterpiecesEnabled={true}
                       fullHeight
                       minimumHeight={140}
                       hideLiveboardHeader
