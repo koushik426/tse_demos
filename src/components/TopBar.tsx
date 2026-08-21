@@ -11,7 +11,7 @@ import {
   Crown,
   Check,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
@@ -42,6 +42,20 @@ export default function TopBar({ active, onChange }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [tierOpen, setTierOpen] = useState(false);
   const initials = (username || 'U').slice(0, 2).toUpperCase();
+  const tierRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
+
+  // Close either dropdown when clicking anywhere outside it.
+  useEffect(() => {
+    if (!menuOpen && !tierOpen) return;
+    const onDown = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (tierRef.current && !tierRef.current.contains(t)) setTierOpen(false);
+      if (userRef.current && !userRef.current.contains(t)) setMenuOpen(false);
+    };
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
+  }, [menuOpen, tierOpen]);
 
   return (
     <header className="topbar">
@@ -83,7 +97,7 @@ export default function TopBar({ active, onChange }: Props) {
         </button>
 
         {/* Tier switcher — preview Premium vs Basic gating. */}
-        <div className="topbar-tier" onClick={() => setTierOpen((o) => !o)}>
+        <div className="topbar-tier" ref={tierRef} onClick={() => setTierOpen((o) => !o)}>
           <span className={`tier-pill tier-${tier}`}>
             <Crown size={13} />
             {tier === 'premium' ? 'Premium' : 'Basic'}
@@ -109,7 +123,7 @@ export default function TopBar({ active, onChange }: Props) {
           )}
         </div>
 
-        <div className="topbar-user" onClick={() => setMenuOpen((o) => !o)}>
+        <div className="topbar-user" ref={userRef} onClick={() => setMenuOpen((o) => !o)}>
           <span className="topbar-avatar">{initials}</span>
           <span className="topbar-username">{username || 'User'}</span>
           <ChevronDown size={16} />
