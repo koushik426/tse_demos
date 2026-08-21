@@ -16,9 +16,22 @@ import {
   CHATBOT_CADENCES_WELCOME,
 } from './config';
 
+const TAB_KEY = 'salesspot.tab';
+
 export default function App() {
   const { isAuthenticated } = useAuth();
-  const [tab, setTab] = useState<TabId>('analytics');
+  const [tab, setTab] = useState<TabId>(
+    () => (sessionStorage.getItem(TAB_KEY) as TabId) || 'analytics'
+  );
+
+  const changeTab = (next: TabId) => {
+    setTab(next);
+    try {
+      sessionStorage.setItem(TAB_KEY, next);
+    } catch {
+      /* ignore */
+    }
+  };
 
   if (!isAuthenticated) {
     return <Login />;
@@ -26,7 +39,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <TopBar active={tab} onChange={setTab} />
+      <TopBar active={tab} onChange={changeTab} />
       <main className="app-main">
         {tab === 'my-analytics' && <MyAnalytics />}
         {tab === 'analytics' && <Analytics />}
