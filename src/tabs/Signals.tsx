@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LiveboardEmbed } from '@thoughtspot/visual-embed-sdk/react';
 import {
   Action,
@@ -18,6 +18,7 @@ import { useTier } from '../context/TierContext';
 import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
 import { buildSignalContext, SignalContext } from '../lib/signalContext';
 import WinBackModal from '../components/WinBackModal';
+import EmbedLoader from '../components/EmbedLoader';
 
 const Liveboard = LiveboardEmbed as unknown as (props: any) => JSX.Element;
 
@@ -90,6 +91,8 @@ export default function Signals() {
   const { theme } = useTheme();
   const { tier } = useTier();
   const [ctx, setCtx] = useState<SignalContext | null>(null);
+  const [vizLoading, setVizLoading] = useState(true);
+  useEffect(() => setVizLoading(true), [theme]);
 
   // ThoughtSpot fires this when the rep clicks "Re-engage cadence" on a row.
   function onCustomAction(payload: any) {
@@ -114,6 +117,7 @@ export default function Signals() {
       </div>
 
       <div className="signals-embed">
+        <EmbedLoader visible={vizLoading} label="Loading…" />
         <Liveboard
           key={theme}
           liveboardId={ANALYTICS_LIVEBOARD_ID}
@@ -122,6 +126,8 @@ export default function Signals() {
           hiddenActions={HIDDEN_ACTIONS}
           disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
           disabledActionReason={UPGRADE_REASON}
+          onLiveboardRendered={() => setVizLoading(false)}
+          onError={() => setVizLoading(false)}
           frameParams={{ width: '100%', height: '100%' }}
           customizations={tsCustomizations(theme, false, HIDE_CHROME_RULES)}
           customActions={[
