@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
-// Central configuration for the Salesloft Analytics mockup.
-// IDs + ThoughtSpot styling are sourced from salesloft_fin.json so that every
+// Central configuration for the SalesSpot Analytics mockup.
+// IDs + ThoughtSpot styling are sourced from salesspot_fin.json so that every
 // embedded ThoughtSpot component shares the exact same look & feel.
 // ---------------------------------------------------------------------------
 
@@ -74,14 +74,14 @@ export const CADENCE_DETAIL_COLUMNS: Record<
 };
 
 /**
- * Worksheet / model used everywhere Spotter runs — the "Salesloft AI" Spotter
- * modal (Analytics tab), the Ask Salesloft Spotter embed, and the host chatbot.
+ * Worksheet / model used everywhere Spotter runs — the "SalesSpot AI" Spotter
+ * modal (Analytics tab), the Ask SalesSpot Spotter embed, and the host chatbot.
  */
 export const WORKSHEET_ID = '06f92f41-00e5-4d81-8213-8a6616f83f49';
 
 // ---------------------------------------------------------------------------
 // ThoughtSpot embed styling — taken verbatim from
-// salesloft_fin.json > stylingConfig.embeddedContent
+// salesspot_fin.json > stylingConfig.embeddedContent
 // ---------------------------------------------------------------------------
 
 /** CSS variables applied to every embedded ThoughtSpot surface. */
@@ -164,7 +164,7 @@ export type ThemeName = 'light' | 'dark';
 
 /**
  * Dark counterpart to TS_CSS_VARIABLES — a deep-evergreen dark theme that keeps
- * Salesloft's green/coral accents. Passed per-embed for the active theme so the
+ * SalesSpot's green/coral accents. Passed per-embed for the active theme so the
  * embedded Liveboard / Search / Spotter track the host app's light/dark toggle.
  *   CSS variables: https://developers.thoughtspot.com/docs/css-variables-reference
  */
@@ -286,7 +286,7 @@ export function tsVarsFor(theme: ThemeName): Record<string, string> {
 
 /**
  * Dark-only color overrides for surfaces with no dedicated CSS variable (answer
- * cards, floating chrome), plus the KPI headline in the Salesloft green. Applied
+ * cards, floating chrome), plus the KPI headline in the SalesSpot green. Applied
  * via rules_UNSTABLE only in dark mode.
  *   Docs: https://developers.thoughtspot.com/docs/css-rules
  */
@@ -335,27 +335,27 @@ export const TS_RULES_DARK: Record<string, Record<string, string>> = {
 };
 
 /**
- * Welcome message for the host-owned Salesloft AI chatbot
- * (from salesloft_fin.json > appConfig.chatbot.welcomeMessage, lightly adapted).
+ * Welcome message for the host-owned SalesSpot AI chatbot
+ * (from salesspot_fin.json > appConfig.chatbot.welcomeMessage, lightly adapted).
  */
 export const CHATBOT_WELCOME =
-  "Hi! I'm Salesloft AI. Ask me about Salesloft, or ask a question about your data — like “show meetings booked by week” or “top cadences by influenced pipeline.”";
+  "Hi! I'm SalesSpot AI. Ask me about SalesSpot, or ask a question about your data — like “show meetings booked by week” or “top cadences by influenced pipeline.”";
 
 /** Greeting + data model used when the chatbot is opened on the Cadences tab. */
 export const CHATBOT_CADENCES_WELCOME =
   'What would you like to know about the cadences shown here?';
 
-/** Spotter icon sprite (magician/spotter icon) from salesloft_fin.json. */
+/** Spotter icon sprite (magician/spotter icon) from salesspot_fin.json. */
 export const TS_ICON_SPRITE_URL =
   'https://cdn.jsdelivr.net/gh/thoughtspot/tse-demo-builders-pre-built/icons/spotter/generic-02.svg';
 
 /**
- * String customizations — replace "Spotter" with "Salesloft AI" everywhere,
+ * String customizations — replace "Spotter" with "SalesSpot AI" everywhere,
  * plus the landing-page description override (from
- * salesloft_fin.json > stylingConfig.embeddedContent.strings / stringIDs).
+ * salesspot_fin.json > stylingConfig.embeddedContent.strings / stringIDs).
  */
 export const TS_STRINGS: Record<string, string> = {
-  Spotter: 'Salesloft AI',
+  Spotter: 'SalesSpot AI',
 };
 
 export const TS_STRING_IDS: Record<string, string> = {
@@ -363,7 +363,7 @@ export const TS_STRING_IDS: Record<string, string> = {
 };
 
 // ---------------------------------------------------------------------------
-// Embed flags — from salesloft_fin.json > stylingConfig.embedFlags
+// Embed flags — from salesspot_fin.json > stylingConfig.embedFlags
 // ---------------------------------------------------------------------------
 
 export const LIVEBOARD_EMBED_FLAGS = {
@@ -388,23 +388,23 @@ export const SPOTTER_EMBED_FLAGS = {
 export const TS_FONT_URL =
   'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap';
 
-/** "Watch video" link shown in the Salesloft AI pane. */
-export const SALESLOFT_VIDEO_URL = 'https://www.salesloft.com/platform/conversations';
+/** "Watch video" link shown in the SalesSpot AI pane. */
+export const SALESSPOT_VIDEO_URL = 'https://www.salesspot.com/platform/conversations';
 
-/** Sample questions shown on the custom Salesloft AI landing pane. */
-export const SALESLOFT_SAMPLE_QUESTIONS = [
+/** Sample questions shown on the custom SalesSpot AI landing pane. */
+export const SALESSPOT_SAMPLE_QUESTIONS = [
   'Revenue generated by week',
   'Top cadences by influenced pipeline',
   'Meetings booked by rep',
   'Reply rate by cadence',
 ];
 
-/** Trial / upgrade prompt shown in the Salesloft AI pane after the 2nd query. */
-export const SALESLOFT_TRIAL_QUESTIONS = 20;
-export const SALESLOFT_UPGRADE_URL = 'https://www.salesloft.com/pricing';
+/** Trial / upgrade prompt shown in the SalesSpot AI pane after the 2nd query. */
+export const SALESSPOT_TRIAL_QUESTIONS = 20;
+export const SALESSPOT_UPGRADE_URL = 'https://www.salesspot.com/pricing';
 
 /**
- * Hide the Spotter embed's own composer / input bar on the Salesloft AI screen
+ * Hide the Spotter embed's own composer / input bar on the SalesSpot AI screen
  * — questions are driven from the host-side pane on the right, so the in-embed
  * "Enter your question" box (and its Quick/Deep toggle) is redundant. Injected
  * via rules_UNSTABLE. Class names are version-fragile; verify via Inspect if a

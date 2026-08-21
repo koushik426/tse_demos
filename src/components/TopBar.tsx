@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
-import SalesloftLogo from './SalesloftLogo';
+import SalesSpotLogo from './SalesSpotLogo';
 
 export type TabId = 'my-analytics' | 'analytics' | 'cadences' | 'signals' | 'ask';
 
@@ -24,10 +24,10 @@ const TABS: { id: TabId; label: string; icon: typeof BarChart3 }[] = [
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
   { id: 'cadences', label: 'Cadences', icon: Workflow },
   { id: 'signals', label: 'Signals', icon: Activity },
-  { id: 'ask', label: 'Ask Salesloft', icon: Sparkles },
+  { id: 'ask', label: 'Ask SalesSpot', icon: Sparkles },
 ];
 
-// Decorative Salesloft platform nav (sets product context, non-interactive).
+// Decorative SalesSpot platform nav (sets product context, non-interactive).
 const PLATFORM_NAV = ['People', 'Deals', 'Conversations'];
 
 interface Props {
@@ -60,7 +60,7 @@ export default function TopBar({ active, onChange }: Props) {
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <SalesloftLogo className="topbar-logo" />
+        <SalesSpotLogo className="topbar-logo" />
         <nav className="topbar-platform-nav">
           {PLATFORM_NAV.map((item) => (
             <span key={item} className="topbar-platform-link">

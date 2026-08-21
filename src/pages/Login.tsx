@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
-import SalesloftLogo from '../components/SalesloftLogo';
+import SalesSpotLogo from '../components/SalesSpotLogo';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-left">
-        <SalesloftLogo className="login-logo" size={34} />
+        <SalesSpotLogo className="login-logo" size={34} />
         <div className="login-hero-content">
           <h1 className="login-hero-title">
             A new story<br />about sales.

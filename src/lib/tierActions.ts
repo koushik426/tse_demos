@@ -14,4 +14,4 @@ export const BASIC_DISABLED_ACTIONS = [
 ];
 
 export const UPGRADE_REASON =
-  'Upgrade to Salesloft Premium to unlock drill-down, Ask AI and downloads.';
+  'Upgrade to SalesSpot Premium to unlock drill-down, Ask AI and downloads.';

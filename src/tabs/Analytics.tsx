@@ -220,7 +220,7 @@ export default function Analytics() {
                   <FileSearch size={16} /> Report Builder
                 </button>
                 <button onClick={() => { setPanel('spotter'); setMenuOpen(false); }}>
-                  <Wand2 size={16} /> Salesloft AI
+                  <Wand2 size={16} /> SalesSpot AI
                 </button>
               </div>
             )}
@@ -253,7 +253,7 @@ export default function Analytics() {
           <div className="analytics-report-col">
             <div className="report-head">
               <span className="report-title">
-                {panel === 'spotter' ? 'Salesloft AI' : 'Report Builder'}
+                {panel === 'spotter' ? 'SalesSpot AI' : 'Report Builder'}
               </span>
               <div className="report-head-actions">
                 <button className="report-pin-btn" onClick={() => setPinOpen(true)}>

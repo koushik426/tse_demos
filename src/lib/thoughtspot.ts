@@ -22,8 +22,8 @@ import {
 let isInitialized = false;
 
 /**
- * Initialise the ThoughtSpot Visual Embed SDK with Salesloft styling.
- * Styling (CSS variables + spotter icon) comes straight from salesloft_fin.json
+ * Initialise the ThoughtSpot Visual Embed SDK with SalesSpot styling.
+ * Styling (CSS variables + spotter icon) comes straight from salesspot_fin.json
  * so every embed across the three tabs shares the exact same theme.
  */
 export function initThoughtSpot(username: string, password: string) {
@@ -40,7 +40,7 @@ export function initThoughtSpot(username: string, password: string) {
         customCSS: { variables: TS_CSS_VARIABLES },
       },
       iconSpriteUrl: TS_ICON_SPRITE_URL,
-      // Global text overrides — replaces "Spotter" -> "Salesloft AI" (and the
+      // Global text overrides — replaces "Spotter" -> "SalesSpot AI" (and the
       // landing-page string) as substrings across every embed. Set in init()
       // so it applies to Liveboard, Search/Answer, Spotter and the chatbot.
       content: {
@@ -81,11 +81,11 @@ export function tsCustomizations(
 }
 
 /**
- * Customizations for the Analytics liveboard — the active-theme Salesloft
+ * Customizations for the Analytics liveboard — the active-theme SalesSpot
  * styling, the rules that hide ThoughtSpot's native filter pills/bar, and a
  * direct override for the on-viz action buttons' hover background.
  *
- * The viz action buttons (bell / "Salesloft AI" / …) read their hover bg from
+ * The viz action buttons (bell / "SalesSpot AI" / …) read their hover bg from
  * `--ts-var-liveboard-header-action-button-hover-color`, but overriding that
  * variable had no effect (the button falls back to a near-white translucent
  * grey). So we target the exact ThoughtSpot rule seen in DevTools —
@@ -330,7 +330,7 @@ function mapResult(item: any): LiveboardSummary {
 
 /**
  * Fetch every liveboard the signed-in user can access (mirrors the
- * "My Reports" listing in salesloft_fin.json). Sorted most-recently-modified
+ * "My Reports" listing in salesspot_fin.json). Sorted most-recently-modified
  * first. No author filter — the REST API already scopes results to objects the
  * caller has read access to.
  */

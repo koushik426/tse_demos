@@ -1,7 +1,7 @@
 /* ===========================================================================
-   Salesloft Analytics — theme approximating salesloft.com's 2024 rebrand:
+   SalesSpot Analytics — theme approximating salesspot.com's 2024 rebrand:
    tonal greens, warm cream surfaces, a humanist-serif display face (Fraunces,
-   in place of Salesloft's "Nib") + Inter for UI text (in place of "Metric").
+   in place of SalesSpot's "Nib") + Inter for UI text (in place of "Metric").
    =========================================================================== */
 
 :root {
@@ -631,7 +631,7 @@ button {
   color: var(--sl-ink);
 }
 
-.salesloft-ai-btn {
+.salesspot-ai-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -646,11 +646,11 @@ button {
   box-shadow: 0 4px 14px rgba(12, 91, 67, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.salesloft-ai-btn:hover {
+.salesspot-ai-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 22px rgba(12, 91, 67, 0.42);
 }
-.salesloft-ai-btn:active {
+.salesspot-ai-btn:active {
   transform: translateY(0);
 }
 
@@ -685,7 +685,7 @@ button {
   border-radius: 10px;
 }
 
-/* ---- Toolbar actions (Add Report + Salesloft AI) ----------------------- */
+/* ---- Toolbar actions (Add Report + SalesSpot AI) ----------------------- */
 .analytics-toolbar-actions {
   display: flex;
   align-items: center;
@@ -1160,7 +1160,7 @@ button {
   display: block;
 }
 
-/* ===========================  Ask Salesloft tab  ======================== */
+/* ===========================  Ask SalesSpot tab  ======================== */
 
 .ask-embed-wrapper {
   width: 100%;
@@ -1563,7 +1563,7 @@ button {
 }
 
 /* ===========================  Chatbot (host-owned)  ==================== */
-/* Themed to match the ThoughtSpot embeds (salesloft_fin.json customCSS):
+/* Themed to match the ThoughtSpot embeds (salesspot_fin.json customCSS):
    teal palette (#0C6E6C / #0A4A4A / #073B3A), mint surfaces, Inter body text
    and a Fraunces title — the same fonts the embedded vizzes use. */
 .chat-fab,
@@ -2157,7 +2157,7 @@ button {
   background: #0c8554;
 }
 
-/* =====================  Salesloft AI two-column pane  =================== */
+/* =====================  SalesSpot AI two-column pane  =================== */
 .sl-ai-overlay {
   position: fixed;
   inset: 0;
@@ -2568,7 +2568,7 @@ button {
   }
 }
 
-/* Ask Salesloft tab — the Salesloft AI experience as a full-height page. */
+/* Ask SalesSpot tab — the SalesSpot AI experience as a full-height page. */
 .tab-ask {
   max-width: none;
 }

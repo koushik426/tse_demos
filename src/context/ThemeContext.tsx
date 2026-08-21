@@ -8,7 +8,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
-const STORAGE_KEY = 'salesloft-theme';
+const STORAGE_KEY = 'salesspot-theme';
 
 function initialTheme(): ThemeName {
   const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;

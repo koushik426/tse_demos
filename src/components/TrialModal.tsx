@@ -1,6 +1,6 @@
-// Professional upgrade prompt shown once (on the 3rd Ask Salesloft question).
+// Professional upgrade prompt shown once (on the 3rd Ask SalesSpot question).
 import { X, Sparkles, Check, ArrowRight } from 'lucide-react';
-import { SALESLOFT_UPGRADE_URL } from '../config';
+import { SALESSPOT_UPGRADE_URL } from '../config';
 
 interface Props {
   open: boolean;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PREMIUM_FEATURES = [
-  'Unlimited Ask Salesloft AI questions',
+  'Unlimited Ask SalesSpot AI questions',
   'Drill-down & underlying-data access',
   'CSV, Excel & PDF exports',
   'Priority pipeline & cadence insights',
@@ -30,8 +30,8 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
           <div className="sl-trial-icon">
             <Sparkles size={24} />
           </div>
-          <div className="sl-trial-eyebrow">Salesloft Premium</div>
-          <h2 className="sl-trial-title">Unlock unlimited Salesloft AI</h2>
+          <div className="sl-trial-eyebrow">SalesSpot Premium</div>
+          <h2 className="sl-trial-title">Unlock unlimited SalesSpot AI</h2>
           <p className="sl-trial-sub">
             {remaining > 0 ? (
               <>You have <strong>{remaining}</strong> free question{remaining === 1 ? '' : 's'} left on the trial. </>
@@ -50,14 +50,14 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
             ))}
           </ul>
 
-          <a className="sl-trial-cta" href={SALESLOFT_UPGRADE_URL} target="_blank" rel="noopener noreferrer">
+          <a className="sl-trial-cta" href={SALESSPOT_UPGRADE_URL} target="_blank" rel="noopener noreferrer">
             Upgrade to Premium <ArrowRight size={18} />
           </a>
           <button className="sl-trial-dismiss" onClick={onClose}>
             Maybe later
           </button>
           <p className="sl-trial-fine">
-            Demo experience — no payment is taken. Talk to your Salesloft account team for
+            Demo experience — no payment is taken. Talk to your SalesSpot account team for
             production pricing.
           </p>
         </div>
