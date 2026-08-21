@@ -12,7 +12,6 @@ import { fetchCadences, tsCustomizations, CadenceData } from '../lib/thoughtspot
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
 import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
-import EmbedLoader from '../components/EmbedLoader';
 import { INLINE_INSIGHTS_LIVEBOARD_ID } from '../config';
 
 const Liveboard = LiveboardEmbed as unknown as (props: any) => JSX.Element;
@@ -28,8 +27,6 @@ export default function Cadences() {
   const { tier } = useTier();
   const [state, setState] = useState<State>({ status: 'loading' });
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [boardLoading, setBoardLoading] = useState(false);
-  useEffect(() => setBoardLoading(true), [expanded, theme]);
 
   async function load() {
     setState({ status: 'loading' });
@@ -125,15 +122,12 @@ export default function Cadences() {
 
                 {isOpen && (
                   <div className="cadence-row-board">
-                    <EmbedLoader visible={boardLoading} label="Loading insights…" />
                     <Liveboard
                       key={`${name}-${theme}`}
                       liveboardId={INLINE_INSIGHTS_LIVEBOARD_ID}
                       isLiveboardMasterpiecesEnabled={true}
                       disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
                       disabledActionReason={UPGRADE_REASON}
-                      onLiveboardRendered={() => setBoardLoading(false)}
-                      onError={() => setBoardLoading(false)}
                       fullHeight
                       minimumHeight={140}
                       hideLiveboardHeader

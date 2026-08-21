@@ -21,7 +21,6 @@ import { LIVEBOARD_EMBED_FLAGS } from '../config';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
 import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
-import EmbedLoader from '../components/EmbedLoader';
 import CreateDashboardModal from '../components/CreateDashboardModal';
 
 const Liveboard = LiveboardEmbed as any;
@@ -47,14 +46,9 @@ export default function MyAnalytics() {
   const [state, setState] = useState<State>({ status: 'loading' });
   const [selected, setSelected] = useState<LiveboardSummary | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
-  const [lbLoading, setLbLoading] = useState(true);
   const embedRef = useEmbedRef<typeof LiveboardEmbed>();
   // When true, the next liveboard load auto-enters edit mode (freshly created).
   const autoEditRef = useRef(false);
-
-  // Re-show the branded loader whenever a different liveboard opens or the embed
-  // remounts on theme change.
-  useEffect(() => setLbLoading(true), [theme, selected?.id]);
 
   // Step 2–4: create the liveboard via REST, then embed the returned ID.
   async function handleCreate(name: string, description: string) {
@@ -123,7 +117,6 @@ export default function MyAnalytics() {
           <h1 className="page-title-inline">{selected.name}</h1>
         </div>
         <div className="liveboard-wrapper">
-          <EmbedLoader visible={lbLoading} label="Loading dashboard…" />
           <Liveboard
             key={theme}
             ref={embedRef}
@@ -134,8 +127,6 @@ export default function MyAnalytics() {
             customizations={tsCustomizations(theme)}
             {...LIVEBOARD_EMBED_FLAGS}
             onLoad={handleLoad}
-            onLiveboardRendered={() => setLbLoading(false)}
-            onError={() => setLbLoading(false)}
           />
         </div>
       </div>

@@ -21,7 +21,6 @@ import { liveboardCustomizations, tsCustomizations } from '../lib/thoughtspot';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
 import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
-import EmbedLoader from '../components/EmbedLoader';
 import RepHierarchyFilter, { HierarchySelection } from '../components/RepHierarchyFilter';
 import RepFilter from '../components/RepFilter';
 import DateRangeFilter, { DateSelection } from '../components/DateRangeFilter';
@@ -36,8 +35,6 @@ type PanelKind = 'search' | 'spotter' | null;
 export default function Analytics() {
   const { theme } = useTheme();
   const { tier } = useTier();
-  const [lbLoading, setLbLoading] = useState(true);
-  const [reportLoading, setReportLoading] = useState(false);
   const [panel, setPanel] = useState<PanelKind>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [pinOpen, setPinOpen] = useState(false);
@@ -189,11 +186,6 @@ export default function Analytics() {
     }
   }
 
-  // Re-show the branded loader when an embed remounts (theme change) or when the
-  // report panel opens with a fresh Search/Spotter embed.
-  useEffect(() => { setLbLoading(true); }, [theme]);
-  useEffect(() => { if (panel) setReportLoading(true); }, [panel]);
-
   return (
     <div className="tab-analytics">
       <div className="analytics-toolbar">
@@ -231,7 +223,6 @@ export default function Analytics() {
       <div className={`analytics-split${open ? ' is-split' : ''}`}>
         <div className="analytics-board-col" ref={boardColRef}>
           <div className="liveboard-wrapper">
-            <EmbedLoader visible={lbLoading} label="Loading dashboard…" />
             <Liveboard
               key={theme}
               ref={liveboardRef}
@@ -242,8 +233,6 @@ export default function Analytics() {
               disabledActionReason={UPGRADE_REASON}
               frameParams={{ width: '100%' }}
               customizations={liveboardCustomizations(theme)}
-              onLiveboardRendered={() => setLbLoading(false)}
-              onError={() => setLbLoading(false)}
               {...LIVEBOARD_EMBED_FLAGS}
             />
           </div>
@@ -265,7 +254,6 @@ export default function Analytics() {
               </div>
             </div>
             <div className="report-embed-fill">
-              <EmbedLoader visible={reportLoading} label="Loading…" />
               {panel === 'search' ? (
                 <Search
                   key={theme}
@@ -274,8 +262,6 @@ export default function Analytics() {
                   hiddenActions={[Action.Pin]}
                   frameParams={{ width: '100%', height: '100%' }}
                   customizations={tsCustomizations(theme, true)}
-                  onLoad={() => setReportLoading(false)}
-                  onError={() => setReportLoading(false)}
                 />
               ) : (
                 <Spotter
@@ -286,8 +272,6 @@ export default function Analytics() {
                   onData={onSpotterData}
                   frameParams={{ width: '100%', height: '100%' }}
                   customizations={tsCustomizations(theme, true)}
-                  onLoad={() => setReportLoading(false)}
-                  onError={() => setReportLoading(false)}
                   {...SPOTTER_EMBED_FLAGS}
                 />
               )}
