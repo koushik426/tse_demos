@@ -1,9 +1,5 @@
-// Gloriously over-the-top trial / upgrade prompt shown once (on the 3rd
-// Salesloft AI question). Urgency banner + live countdown, a giant PAY NOW,
-// fake social proof, and a joke disclaimer. Themed to the app; the payment CTA
-// is a clearly clickable button.
-import { useEffect, useState } from 'react';
-import { X, CreditCard, Rocket, Clock, Star } from 'lucide-react';
+// Professional upgrade prompt shown once (on the 3rd Ask Salesloft question).
+import { X, Sparkles, Check, ArrowRight } from 'lucide-react';
 import { SALESLOFT_UPGRADE_URL } from '../config';
 
 interface Props {
@@ -12,27 +8,15 @@ interface Props {
   onClose: () => void;
 }
 
-const pad = (n: number) => (n < 10 ? '0' : '') + n;
+const PREMIUM_FEATURES = [
+  'Unlimited Ask Salesloft AI questions',
+  'Drill-down & underlying-data access',
+  'CSV, Excel & PDF exports',
+  'Priority pipeline & cadence insights',
+  'Dedicated onboarding & support',
+];
 
 export default function TrialModal({ open, remaining, onClose }: Props) {
-  const [left, setLeft] = useState('6d 23:59:59');
-
-  // Live (and, let's be honest, entirely fake) 7-day urgency countdown.
-  useEffect(() => {
-    if (!open) return;
-    const end = Date.now() + 7 * 24 * 3600 * 1000 - 1000;
-    const tick = () => {
-      let s = Math.max(0, Math.floor((end - Date.now()) / 1000));
-      const d = Math.floor(s / 86400); s -= d * 86400;
-      const h = Math.floor(s / 3600); s -= h * 3600;
-      const m = Math.floor(s / 60); s -= m * 60;
-      setLeft(`${d}d ${pad(h)}:${pad(m)}:${pad(s)}`);
-    };
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
-  }, [open]);
-
   if (!open) return null;
 
   return (
@@ -42,58 +26,39 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
           <X size={18} />
         </button>
 
-        <div className="sl-trial-urgency">
-          <Clock size={14} />
-          <span>Offer expires in</span>
-          <span className="sl-trial-count">{left}</span>
-        </div>
-
         <div className="sl-trial-body">
           <div className="sl-trial-icon">
-            <Rocket size={28} />
+            <Sparkles size={24} />
           </div>
-          <div className="sl-trial-eyebrow">A personal message from Salesloft AI</div>
-          <h2 className="sl-trial-title">
-            {remaining} questions left in your free trial! &#127891;
-          </h2>
-          <p className="sl-trial-pitch">
-            Look &mdash; we weren&rsquo;t going to say anything, but you are{' '}
-            <b>clearly too powerful</b> for a free trial. Unlock <b>UNLIMITED</b> galaxy-brained
-            answers before your genius goes to waste and your competitors out-dial you in their
-            sleep. &#128564;&#128201;
+          <div className="sl-trial-eyebrow">Salesloft Premium</div>
+          <h2 className="sl-trial-title">Unlock unlimited Salesloft AI</h2>
+          <p className="sl-trial-sub">
+            {remaining > 0 ? (
+              <>You have <strong>{remaining}</strong> free question{remaining === 1 ? '' : 's'} left on the trial. </>
+            ) : (
+              <>You&rsquo;ve reached your free-trial limit. </>
+            )}
+            Upgrade to Premium for unlimited access across your team.
           </p>
 
-          <div className="sl-trial-price">
-            <span className="sl-trial-was">$4,999/mo</span>
-            <span className="sl-trial-now">today: a suspiciously reasonable amount</span>
-          </div>
-          <div className="sl-trial-pricenote">
-            A price this good should honestly be illegal (it&rsquo;s not &mdash; we checked).
-          </div>
+          <ul className="sl-trial-features">
+            {PREMIUM_FEATURES.map((f) => (
+              <li key={f}>
+                <span className="sl-trial-check"><Check size={14} /></span>
+                {f}
+              </li>
+            ))}
+          </ul>
 
           <a className="sl-trial-cta" href={SALESLOFT_UPGRADE_URL} target="_blank" rel="noopener noreferrer">
-            <CreditCard size={20} /> Pay now
+            Upgrade to Premium <ArrowRight size={18} />
           </a>
-          <p className="sl-trial-ctasub">one click &middot; instant genius &middot; zero regrets (probably)</p>
           <button className="sl-trial-dismiss" onClick={onClose}>
-            no thanks, i enjoy having limits
+            Maybe later
           </button>
-
-          <div className="sl-trial-social">
-            <span>&#128293; 12 reps eyeing this deal</span>
-            <span className="sl-trial-stars">
-              <Star size={12} fill="currentColor" />
-              <Star size={12} fill="currentColor" />
-              <Star size={12} fill="currentColor" />
-              <Star size={12} fill="currentColor" />
-              <Star size={12} fill="currentColor" />
-            </span>
-            <span>4.9 from people who caved</span>
-          </div>
           <p className="sl-trial-fine">
-            *Countdown is 100% real.* (*it is not). This is a demo &mdash; no card will be charged,
-            no genius guaranteed. Possible side effects: closing more deals, mild smugness, and an
-            inexplicable urge to say &ldquo;let&rsquo;s circle back.&rdquo;
+            Demo experience — no payment is taken. Talk to your Salesloft account team for
+            production pricing.
           </p>
         </div>
       </div>
