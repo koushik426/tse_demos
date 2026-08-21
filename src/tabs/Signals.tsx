@@ -126,6 +126,8 @@ export default function Signals() {
           hiddenActions={HIDDEN_ACTIONS}
           disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
           disabledActionReason={UPGRADE_REASON}
+          onLoad={() => setVizLoading(false)}
+          onData={() => setVizLoading(false)}
           onLiveboardRendered={() => setVizLoading(false)}
           onError={() => setVizLoading(false)}
           frameParams={{ width: '100%', height: '100%' }}
