@@ -14,6 +14,8 @@ import {
 } from '../config';
 import { tsCustomizations } from '../lib/thoughtspot';
 import { useTheme } from '../context/ThemeContext';
+import { useTier } from '../context/TierContext';
+import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
 import { buildSignalContext, SignalContext } from '../lib/signalContext';
 import WinBackModal from '../components/WinBackModal';
 
@@ -86,6 +88,7 @@ const HIDE_CHROME_RULES: Record<string, Record<string, string>> = {
 
 export default function Signals() {
   const { theme } = useTheme();
+  const { tier } = useTier();
   const [ctx, setCtx] = useState<SignalContext | null>(null);
 
   // ThoughtSpot fires this when the rep clicks "Re-engage cadence" on a row.
@@ -117,6 +120,8 @@ export default function Signals() {
           vizId={SIGNALS_VIZ_ID}
           hideLiveboardHeader
           hiddenActions={HIDDEN_ACTIONS}
+          disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
+          disabledActionReason={UPGRADE_REASON}
           frameParams={{ width: '100%', height: '100%' }}
           customizations={tsCustomizations(theme, false, HIDE_CHROME_RULES)}
           customActions={[

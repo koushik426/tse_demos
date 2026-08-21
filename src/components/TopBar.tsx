@@ -8,10 +8,13 @@ import {
   LogOut,
   Sun,
   Moon,
+  Crown,
+  Check,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useTier } from '../context/TierContext';
 import SalesloftLogo from './SalesloftLogo';
 
 export type TabId = 'my-analytics' | 'analytics' | 'cadences' | 'signals' | 'ask';
@@ -35,7 +38,9 @@ interface Props {
 export default function TopBar({ active, onChange }: Props) {
   const { username, logout } = useAuth();
   const { theme, toggle } = useTheme();
+  const { tier, setTier } = useTier();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [tierOpen, setTierOpen] = useState(false);
   const initials = (username || 'U').slice(0, 2).toUpperCase();
 
   return (
@@ -76,6 +81,34 @@ export default function TopBar({ active, onChange }: Props) {
         >
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
+
+        {/* Tier switcher — preview Premium vs Basic gating. */}
+        <div className="topbar-tier" onClick={() => setTierOpen((o) => !o)}>
+          <span className={`tier-pill tier-${tier}`}>
+            <Crown size={13} />
+            {tier === 'premium' ? 'Premium' : 'Basic'}
+          </span>
+          <ChevronDown size={15} />
+          {tierOpen && (
+            <div className="topbar-menu tier-menu">
+              <button
+                className="topbar-menu-item"
+                onClick={() => { setTier('premium'); setTierOpen(false); }}
+              >
+                <Crown size={14} /> Premium
+                {tier === 'premium' && <Check size={14} className="tier-check" />}
+              </button>
+              <button
+                className="topbar-menu-item"
+                onClick={() => { setTier('basic'); setTierOpen(false); }}
+              >
+                <span style={{ width: 14 }} /> Basic
+                {tier === 'basic' && <Check size={14} className="tier-check" />}
+              </button>
+            </div>
+          )}
+        </div>
+
         <div className="topbar-user" onClick={() => setMenuOpen((o) => !o)}>
           <span className="topbar-avatar">{initials}</span>
           <span className="topbar-username">{username || 'User'}</span>

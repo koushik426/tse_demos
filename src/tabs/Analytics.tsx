@@ -19,6 +19,8 @@ import {
 } from '../config';
 import { liveboardCustomizations, tsCustomizations } from '../lib/thoughtspot';
 import { useTheme } from '../context/ThemeContext';
+import { useTier } from '../context/TierContext';
+import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
 import RepHierarchyFilter, { HierarchySelection } from '../components/RepHierarchyFilter';
 import RepFilter from '../components/RepFilter';
 import DateRangeFilter, { DateSelection } from '../components/DateRangeFilter';
@@ -32,6 +34,7 @@ type PanelKind = 'search' | 'spotter' | null;
 
 export default function Analytics() {
   const { theme } = useTheme();
+  const { tier } = useTier();
   const [panel, setPanel] = useState<PanelKind>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [pinOpen, setPinOpen] = useState(false);
@@ -226,6 +229,8 @@ export default function Analytics() {
               liveboardId={ANALYTICS_LIVEBOARD_ID}
               fullHeight
               isLiveboardMasterpiecesEnabled
+              disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
+              disabledActionReason={UPGRADE_REASON}
               frameParams={{ width: '100%' }}
               customizations={liveboardCustomizations(theme)}
               {...LIVEBOARD_EMBED_FLAGS}

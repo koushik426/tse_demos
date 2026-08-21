@@ -19,6 +19,8 @@ import {
 } from '../lib/thoughtspot';
 import { LIVEBOARD_EMBED_FLAGS } from '../config';
 import { useTheme } from '../context/ThemeContext';
+import { useTier } from '../context/TierContext';
+import { BASIC_DISABLED_ACTIONS, UPGRADE_REASON } from '../lib/tierActions';
 import CreateDashboardModal from '../components/CreateDashboardModal';
 
 const Liveboard = LiveboardEmbed as any;
@@ -40,6 +42,7 @@ function formatDate(ms: number): string {
 export default function MyAnalytics() {
   const { username, password } = useAuth();
   const { theme } = useTheme();
+  const { tier } = useTier();
   const [state, setState] = useState<State>({ status: 'loading' });
   const [selected, setSelected] = useState<LiveboardSummary | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
@@ -119,6 +122,8 @@ export default function MyAnalytics() {
             ref={embedRef}
             liveboardId={selected.id}
             isLiveboardMasterpiecesEnabled
+            disabledActions={tier === 'basic' ? BASIC_DISABLED_ACTIONS : []}
+            disabledActionReason={UPGRADE_REASON}
             customizations={tsCustomizations(theme)}
             {...LIVEBOARD_EMBED_FLAGS}
             onLoad={handleLoad}

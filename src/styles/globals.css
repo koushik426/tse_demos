@@ -2765,3 +2765,35 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .sl-trial-modal, .sl-trial-icon, .sl-trial-cta { animation: none; }
 }
+
+/* Tier switcher (Premium / Basic) in the top bar */
+.topbar-tier {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px 5px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--sl-muted);
+}
+.topbar-tier:hover { background: var(--sl-mint); }
+.tier-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.tier-premium {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--sl-green), var(--sl-green-dark));
+}
+.tier-basic {
+  color: var(--sl-muted);
+  background: var(--sl-mint-2);
+}
+.tier-menu { right: 0; left: auto; min-width: 150px; }
+.tier-check { margin-left: auto; color: var(--sl-green); }
